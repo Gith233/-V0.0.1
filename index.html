@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 网页图标 -->
+    <link rel="shortcut icon" href="./img/L64.ico" />
+    <!-- 引入">"图标 -->
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.2.0/css/all.css"
+      rel="stylesheet"
+    />
+    <title>Langston秘境</title>
+    <script>
+      // 切换网页改变title标题
+      var title; // 用于临时存放原来的title内容
+      window.onblur = function () {
+        // onblur时先存下原来的title,再更改title内容
+        title = document.title;
+        document.title = "呐，摸鱼被我抓住咯~";
+      };
+      window.onfocus = function () {
+        // onfocus时原来的title不为空才替换回去
+        // 防止页面还没加载完成且onblur时title=undefined的情况
+        if (title) {
+          document.title = title;
+          //   title = document.title;
+          //   document.title = "咦，又回来了！";
+        }
+      };
+    </script>
+    <style>
+      a {
+        text-decoration: none;
+      }
+      body {
+        margin: 0;
+        height: 100vh;
+        background-color: #eee;
+      }
+
+      /* 便于显示透明盒子 */
+      /* * {
+        border: 1px solid black;
+    } */
+
+      /* 阴影 */
+      .yingYin {
+        box-shadow: rgb(0 0 0 / 20%) 0 2px 1px -1px,
+          rgb(0 0 0 / 14%) 0 1px 1px 0px, rgb(0 0 0 / 12%) 0 1px 3px 0;
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      .baise {
+        background-color: white;
+      }
+
+      .flex1 {
+        flex: 1;
+      }
+
+      .column {
+        flex-direction: column;
+      }
+
+      .mg8 {
+        margin: 8px;
+      }
+
+      .mgr8 {
+        margin-right: 8px;
+      }
+
+      .mgt8 {
+        margin-top: 8px;
+      }
+
+      .mgl8 {
+        margin-left: 8px;
+      }
+
+      .mypic {
+        width: 40px;
+        height: 40px;
+        border-radius: 30px;
+      }
+
+      .daoHang {
+        padding: 10px 20px;
+        border-bottom: 1px solid grey;
+        font-size: 14px;
+        color: #666;
+      }
+
+      /* 移动端适配，当屏幕宽度小于600px时要改变css */
+      @media (max-width: 600px) {
+        /* 隐藏侧边栏 */
+        .ceBian {
+          display: none;
+        }
+
+        /* 内容 */
+        .neiRong {
+          flex-direction: column;
+        }
+
+        /* 数据区 */
+        .shuJuQu {
+          flex-direction: column;
+        }
+
+        /* 左区 */
+        .youQu {
+          margin-left: 8px;
+        }
+
+        /* 数据 */
+        .shuJu {
+          margin: 0 0 8px;
+          flex: auto;
+        }
+      }
+
+      /* 隐藏滚动条 */
+      .neiRong::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* 侧边样式 */
+      /* nav {
+      width: 1200px;
+      height: 460px;
+    } */
+
+      nav > ul {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        /* width: 234px; */
+        height: calc(100% - 40px);
+        padding: 0;
+        /* background-color: rgb(171, 44, 44); */
+      }
+
+      nav ul li {
+        opacity: 0.8;
+        list-style: none;
+        height: calc(calc(100% - 40px) / 9);
+        width: auto;
+        /* background-color: rgba(105, 101, 101, 0.8); */
+        line-height: calc(calc(460px - 40px) / 9);
+        padding-left: 30px;
+        /* color: #fff; */
+        font-style: 14px;
+        position: relative;
+        transition: all 0.3s;
+      }
+
+      li i {
+        color: #fff;
+        font-size: 16px;
+        display: inline;
+      }
+
+      li > .ico {
+        position: absolute;
+        width: auto;
+        z-index: 1;
+        top: 0;
+        right: 22px;
+      }
+
+      li:hover {
+        background-color: #cdf8f2;
+      }
+
+      li:hover + .content {
+        display: block;
+      }
+
+      .content {
+        background-color: #fff;
+        /* position: fixed; 展开溢出*/
+        position: absolute;
+        left: 234px;
+        top: 0;
+        height: 100%;
+        width: calc(1260px - 234px);
+        display: none;
+        /* 字体 */
+        font-size: 130px;
+        text-align: center;
+        line-height: 460px;
+        /* 阴影 */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
+      }
+      /* 字体样式 */
+      .ziti_name {
+        margin: 0 auto;
+        font-family: "Helvetica Neue", "Arial", sans-serif;
+        font-style: italic;
+        font-weight: 18;
+        font-variant-ligatures: normal;
+        font-size: 1rem;
+        letter-spacing: 5px;
+      }
+    </style>
+  </head>
+
+  <body class="flex">
+    <!-- 侧边栏 -->
+    <div style="width: 200px; z-index: 2" class="baise yingYin ceBian">
+      <!-- 头像栏 -->
+      <div
+        style="
+          padding: 10px;
+          align-items: center;
+          justify-content: center;
+          border-bottom: 1px solid #999;
+        "
+        class="flex"
+      >
+        <img src="./img/k.jpg" alt="图片" class="mypic" />
+        <div style="margin-left: 10px" class="ziti_name">刻记牛杂</div>
+      </div>
+      <!-- 导航栏 -->
+      <div class="flex1">
+        <!-- <div class="daoHang">导航</div>
+        <div class="daoHang">导航</div>
+        <div class="daoHang">导航</div>
+        <div class="daoHang">导航</div>
+        <div class="daoHang">导航</div>
+        <div class="daoHang">导航</div>
+        <div class="daoHang">导航</div>
+        <div class="daoHang">导航</div> -->
+
+        <nav class="daoHang">
+          <ul>
+            <!-- i 图标导入 -->
+            <li>
+              <div class="box">导航</div>
+              <div class="ico">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+            <div class="content">1</div>
+            <li>
+              <div class="box">导航</div>
+              <div class="ico">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+            <div class="content">2</div>
+
+            <li>
+              <div class="box">导航</div>
+              <div class="ico">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+            <div class="content">3</div>
+
+            <li>
+              <div class="box">导航</div>
+              <div class="ico">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+            <div class="content">4</div>
+
+            <li>
+              <div class="box">导航</div>
+              <div class="ico">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+            <div class="content">5</div>
+
+            <li>
+              <div class="box">导航</div>
+              <div class="ico">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+            <div class="content">6</div>
+
+            <li>
+              <div class="box">导航</div>
+              <div class="ico">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+            <div class="content">7</div>
+
+            <li>
+              <div class="box">导航</div>
+              <div class="ico">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+            <div class="content">8</div>
+
+            <li>
+              <div class="box">导航</div>
+              <div class="ico">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+            <div class="content">9</div>
+
+            <li>
+              <div class="box">导航</div>
+              <div class="ico">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </div>
+            </li>
+            <div class="content">10</div>
+          </ul>
+        </nav>
+        <div style="text-align: center; color: #666">⎛⎝喵~⎠⎞</div>
+        <div style="text-align: center; font-size: 14px; color: #5f9a92">
+          <p>&copy;版权所有：<b>Langston</b></p>
+          <p>联系方式: 2358135305@qq.com</p>
+          <p style="color: #666">V0.0.1</p>
+        </div>
+      </div>
+    </div>
+    <!-- 主区域 -->
+    <div class="flex1 flex column">
+      <!-- 头部栏 -->
+      <div style="height: 60px; z-index: 1" class="baise yingYin">
+        <span
+          style="
+            width: 80%;
+            text-align: center;
+            line-height: 60px;
+            font-size: 30px;
+            font-family: '幼圆', '微软雅黑';
+            font-weight: bold;
+            margin-left: 2em;
+            color: #999;
+          "
+        >
+          Welcome to Langston 欢迎^A^
+        </span>
+        <span style="display: block; float: right">
+          <ul>
+            <li><a href="#" style="color: #999">博客首页</a></li>
+            <li>
+              <a href="https://github.com/Gith233" style="color: #999"
+                >Github</a
+              >
+            </li>
+          </ul>
+        </span>
+      </div>
+      <!-- 内容区 -->
+      <div style="overflow: auto" class="flex1 flex neiRong">
+        <!-- 左区 -->
+        <div style="flex: 3" class="flex column mg8">
+          <!-- 数据区 -->
+          <div class="flex shuJuQu">
+            <!-- 数据块 -->
+            <div
+              style="height: 100px"
+              class="flex1 baise mgr8 yingYin shuJu"
+            ></div>
+            <div
+              style="height: 100px"
+              class="flex1 baise mgr8 yingYin shuJu"
+            ></div>
+            <div
+              style="height: 100px"
+              class="flex1 baise mgr8 yingYin shuJu"
+            ></div>
+            <div style="height: 100px" class="flex1 baise yingYin shuJu"></div>
+          </div>
+          <!-- 列表区 -->
+          <div class="flex column">
+            <div style="height: 160px" class="baise mgt8 yingYin">
+              <p>Hello Wrold</p>
+            </div>
+            <div style="height: 160px" class="baise mgt8 yingYin">
+              Hello Wrold
+            </div>
+            <div style="height: 160px" class="baise mgt8 yingYin">
+              Hello Wrold
+            </div>
+            <div style="height: 160px" class="baise mgt8 yingYin">
+              Hello Wrold
+            </div>
+            <div style="height: 160px" class="baise mgt8 yingYin">
+              Hello Wrold
+            </div>
+            <div style="height: 160px" class="baise mgt8 yingYin">
+              Hello Wrold
+            </div>
+          </div>
+        </div>
+        <!-- 右区 -->
+        <div style="flex: 1" class="flex column mgt8 youQu">
+          <!-- 提示区 -->
+          <div style="height: 150px" class="baise yingYin"></div>
+          <!-- 消息区 -->
+          <div style="height: 400px" class="baise mgt8 yingYin"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 小技巧 ctrl+d 多行选中 先选择某一元素后按ctrl+shift+l可匹配全局，在按alt+鼠标左键减选多余元素，实现批量修改 -->
+  </body>
+</html>
